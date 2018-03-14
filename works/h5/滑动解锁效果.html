@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>滑动解锁效果</title>
+<style>
+	@keyframes run{
+		from{ background-position:-200px;}
+		to{ background-position:200px;}	
+	}
+
+	*{ padding:0; margin:0;}
+	body{ background:#000;}
+	.box{ width:400px; height:50px; margin:50px auto; border:1px solid yellow; color:#666; font-size:30px; line-height:50px; text-align:center; position:relative;}
+	.box p{ position:absolute; top:0; left:0; width:100%; height:100%;}
+	
+	.mask{ background:-webkit-linear-gradient(-45deg,transparent 40%,#FFF 50%,transparent 60%);
+	 -webkit-background-clip:text;
+	 color:transparent;
+	 background-position:-200px;
+	 transition:2s all ease;
+	 
+	 animation:2s run linear infinite;
+	}
+	
+	.box:hover .mask{ background-position:200px;}
+</style>
+</head>
+
+<body>
+	<div class="box">
+    	<p>滑动开始解锁</p>
+        <p class="mask">滑动开始解锁</p>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

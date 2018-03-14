@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>穿墙</title>
+	<style>
+		*{margin:0; padding:0;}
+		ul{overflow:hidden; width:630px; margin:100px auto;}
+		li{width:200px; height:200px; background:#ccc; font-size:30px; font-weight:bold; line-height:200px; overflow:hidden; float:left; margin:5px; position:relative; top:0; left:0;}
+		li span{display: block;width:100%; height:100%; background:red; opacity:0.4; filter:alpha(opacity:40); transform: translateX(-200px); transition: 0.4s all linear;}
+	</style>
+<script>
+function a2d(a){
+    return a*180/Math.PI;
+}
+//判断移入的方向
+function hoverDir(obj,oEvent){
+    var x = obj.offsetLeft+obj.offsetWidth/2-oEvent.clientX;
+    var y = obj.offsetTop+obj.offsetHeight/2-oEvent.clientY;
+    return Math.round((a2d(Math.atan2(y,x))+180)/90)%4;
+}
+function hoverGo(obj){
+    var oS = obj.children[0];
+    obj.onmouseover=function(ev){
+        var oEvent = ev||event;
+        var oFrom = oEvent.fromElement||oEvent.relatedTarget;
+        if(obj.contains(oFrom))return;
+        var dir = hoverDir(obj,oEvent);
+　　　　　//根据方向重新设定遮罩层位置
+        switch(dir){
+            case 0:
+                oS.style.transform = 'translateX(200px) translateY(0)';
+                break;
+            case 1:
+                oS.style.transform = 'translateX(0) translateY(200px)';
+                break;
+            case 2:
+                oS.style.transform = 'translateX(-200px) translateY(0)';
+                break;
+            case 3:
+                oS.style.transform = 'translateX(0) translateY(200px)';
+                break;
+        }
+        moveTo(oS,{translateX:0,translateY:0});
+    };
+    obj.onmouseout=function(ev){
+        var oEvent = ev||event;
+        var oTo = oEvent.toElement||oEvent.relatedTarget;
+        if(obj.contains(oTo))return;
+        var dir = hoverDir(obj,oEvent);
+　　　　　//根据移除的方向遮罩层进行相应的运动
+        switch(dir){
+            case 0:
+                moveTo(oS,{translateX:200,translateY:0});
+                break;
+            case 1:
+                moveTo(oS,{translateX:0,translateY:200});
+                break;
+            case 2:
+                moveTo(oS,{translateX:-200,translateY:0});
+                break;
+            case 3:
+                moveTo(oS,{translateX:0,translateY:-200});
+                break;
+        }
+    };
+}
+window.onload=function(){
+    var oUl = document.body.children[0];
+    var aLi = oUl.children;
+    for(var i=0;i<aLi.length;i++){
+        hoverGo(aLi[i]);
+    }
+};
+//oS,{translateX:0,translateY:-200}
+function moveTo(obj,options){
+    for(var name in options){
+        obj.style.transform = name+'('+options[name]+'px) '+name+'('+options[name]+'px)';
+        obj.style.webkitTransform = name+'('+options[name]+'px) '+name+'('+options[name]+'px)';
+    }
+}
+</script>
+</head>
+<body>
+<ul>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+</ul>
+</body>
+</html>

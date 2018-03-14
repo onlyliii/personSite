@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人站</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="warp">
+	<!-- 导航开始 -->
+    <nav id="nav">
+	    <div class="con_wrap clearfix">
+	        <div class="fl logo"><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=815859746@qq.com" target="_blank">Resume</a></div>
+	        <ul id="navUl" class="clearfix fr menu">
+	            <li>
+	            	<a href="javascript:;">首页
+						<div class="progress_bar" style="background: #1dd388;" ></div>
+	            	</a>
+	            </li>
+	            <li>
+	            	<a href="javascript:;">专业技能
+						<div class="progress_bar" style="background: #80CC28;" ></div>
+	            	</a>
+	            </li>
+	            <li>
+	            	<a href="javascript:;">H5作品
+						<div class="progress_bar" style="background: #F1511B;" ></div>
+	            	</a>
+	            </li>
+	            <li>
+	            	<a href="javascript:;">JS作品
+						<div class="progress_bar" style="background: #00ADEF;" ></div>
+	            	</a>
+	            </li>
+	            <li>
+	            	<a href="javascript:;" >联系方式
+						<div class="progress_bar" style="background: #FBBC09;" ></div>
+	            	</a>
+	            </li>
+	        </ul>
+	    </div>
+    </nav>
+    <!-- banner区开始 -->
+	<section class="banner" id="page1">
+		<div class="con_wrap">
+			<!-- <canvas id="canvas"></canvas> -->
+			<!-- 简介 加阴影效果 -->
+	        <div class="intro">
+	            <h3>Welcome To My Personal Website</h3>
+	            <h4>This site introduces my professional skills and work</h4>
+	            <h4>There are some JS and HTML5/CSS3 works</h4>
+	        </div>
+	    </div>
+	</section>
+	<!-- 专业技能 -->
+	<section class="skills" id="page2" style="background: #80CC28;" >
+		<div class="con_wrap">
+			<h2>专业技能</h2>
+			<div class="clearfix skillsCon">
+				<div class="fl skills_left">
+                    <p>1、能够熟练运用 HTML、CSS、JavaScript 构建高性能的web应用程序；</p>
+                    <p>2、理解web标准和兼容性，对可用性相关知识有实际的了解和实践经验；</p>
+                    <p>3、能够熟练运用主流的JS框架jquery，具有良好的代码风格与程序架构；</p>
+                    <p>4、熟悉使用ajax以及跨域jsonp进行数据交互；</p>
+                    <p>5、对Web前端的性能优化有一定的理解和相关实践；对OO与mv*的编程思想有所了解；</p>
+                    <p>6、对 HTML5、CSS3有一定程度的了解 ,对服务器端编程语言nodejs的概念有一定的认识。</p>
+				</div>
+				<div id="skills_right" class="fr skills_right">
+                    <p>HTML&CSS</p>
+                    <div id="hcskill">
+                        <span>5%</span>
+                    </div>
+                    <p>JAVASCRIPT</p>
+                    <div id="jsskill">
+                        <span>5%</span>
+                    </div>
+                    <p>HTML5&CSS3</p>
+                    <div id="h5skill">
+                        <span>5%</span>
+                    </div>
+                    <p>JQUERY</p>
+                    <div id="jqskill">
+                        <span>5%</span>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- h5作品区 -->
+	<section class="h5works" id="page3" style="background: #F1511B;" >
+		<div class="con_wrap">
+			<h2>H5作品</h2>
+            <div id="h5ConWrap">
+                <ul id="h5Content" class="clearfix" >
+                    <!--<li>
+                        <img src="img/h5/buyu.png" alt="">
+                        <a href="works/h5/canvasbuyu/buyu.html" target="_blank">canvas捕鱼达人</a>
+                    </li>-->
+                </ul>
+            </div>
+		</div>
+	</section>
+	<!-- js作品区 -->
+	<section class="jsworks" id="page4" style="background: #00ADEF;" >
+		<div class="con_wrap">
+			<h2>JS作品</h2>
+            <div id="jsConWrap">
+                <ul id="jsContent" class="clearfix">
+                    <!--<li>
+                        <a href="works/h5/canvasbuyu/buyu.html" target="_blank">
+                            <img src="img/h5/buyu.png" alt="" />
+                            <span>canvas捕鱼达人</span>
+                        </a>
+                    </li>-->
+                </ul>
+            </div>
+		</div>
+	</section>
+	<!-- 与我联系 -->
+	<section class="contact" id="page5" style="background: #FBBC09;" >
+		<div class="con_wrap">
+			<h2>联系方式</h2>
+			<div id="contact_left" class="fl">
+				<p><span>姓名</span>李平</p>
+				<p><span>电话</span>18922451373</p>
+				<p><span>邮箱</span>18922451373@163.com</p>
+				<!--<p><span>专业</span>电子信息工程</p>-->
+				<!--<p><span>学历</span>本科</p>-->
+				<p><span>住址</span>上海市徐汇区</p>
+			</div>
+            <div id="contact_right" class="fr">
+                <h4>Contact Us</h4>
+                <input type="text" value="Name" />
+                <input type="text" value="Email" />
+                <input type="text" value="Phone Number" />
+                <textarea cols="30" rows="8">Message</textarea>
+                <a href="javascript:;" target="_blank">发送</a>
+            </div>
+		</div>
+	</section>
+</div>
+</body>
+<script src="js/main.js"></script>
+<!-- <script src="js/canvas.js"></script> -->
+</html>

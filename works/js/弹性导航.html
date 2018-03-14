@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹性导航</title>
+	<style>
+	*{ margin: 0; padding: 0; list-style: none; }
+	#ul1{ margin: 20px auto; width: 800px; position: relative;}
+	#ul1 li{width: 198px; height: 50px; border: 1px solid red; float: left; font: 30px/50px "微软雅黑"; text-align: center;}
+	#block{ background: #0cc; position: absolute; left: 0; top: 0; opacity: 0.5; z-index: -1;}
+	</style>
+<script>
+window.onload = function(){
+	var oUl = document.getElementById('ul1');
+	var aLi = oUl.getElementsByTagName('li');
+	var oBlock = document.getElementById('block');
+	var l = 0;
+	var now = 0;
+	for(var i = 0; i < aLi.length -1; i++){
+		aLi[i].onmouseover = function(){
+			move(oBlock,this.offsetLeft);
+		};
+		aLi[i].onmouseout = function(){
+			move(oBlock,now);
+		};
+		aLi[i].onclick = function(){
+			clearInterval(oBlock.timer);
+			oBlock.style.left = this.offsetLeft + 'px';
+			l = this.offsetLeft;
+			now = this.offsetLeft;
+		};
+	}
+	function move(obj,iTarget){
+		var speed = 0;
+		clearInterval(obj.timer);
+		obj.timer = setInterval(function(){
+			speed+=(iTarget - obj.offsetLeft)/6;
+			speed*=0.7;
+			console.log(iTarget,obj.offsetLeft,l,speed);
+			l+=speed;
+			if(Math.abs(speed)<1) {
+				speed=0;
+			}
+			obj.style.left = Math.round(l) + 'px';
+			if(iTarget == obj.offsetLeft && speed==0){
+				clearInterval(obj.timer);
+			}
+		}, 30);
+	}
+};
+</script>
+</head>
+<body>
+	<div id="#div1">
+		<ul id="ul1">
+			<li>首页</li>
+			<li>综艺</li>
+			<li>视频</li>
+			<li>搞笑</li>
+			<li id="block"></li>
+		</ul>
+	</div>
+</body>
+</html>

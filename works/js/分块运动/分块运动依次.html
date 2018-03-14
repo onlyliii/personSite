@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分块运动依次</title>
+	<style>
+		*{ margin: 0; padding: 0; list-style: none; }
+		#box{ width: 800px; height: 450px; margin: 20px auto; background: url(img/1.png); }
+		#box div{ float: left; background: url(img/0.png); }
+	</style>
+	<script src="move4.js"></script>
+	<script>
+	window.onload = function(){
+		var oBox = document.getElementById('box');
+		var oBtn = document.getElementById('btn');
+		var aDiv = oBox.children;
+		var col = 8;
+		var row = 5;
+		var now = 0;
+		var ready = true;
+		for(var r=0;r<row;r++){
+			for(var c=0;c<col;c++){
+				var oDiv = document.createElement('div');
+				oDiv.style.width = oBox.offsetWidth/col + 'px';
+				oDiv.style.height = oBox.offsetHeight/row + 'px';
+				oBox.appendChild(oDiv);
+				oDiv.style.backgroundPosition = -c*oDiv.offsetWidth + 'px '+ -r*oDiv.offsetHeight+'px';
+			}
+		}
+		oBtn.onclick = function(){
+			if(!ready) return;
+			ready = false;
+			var i = 0;
+			var timer=setInterval(function(){
+				(function(index){
+					startMove(aDiv[i],{opacity:0},{complete:function(){
+						if(index==aDiv.length-1){
+							now++;
+							now%=3;
+							for (var i = 0; i < aDiv.length; i++) {
+								aDiv[i].style.backgroundImage = 'url(img/'+now+'.png)';
+								aDiv[i].style.opacity = 1;
+							}
+							oBox.style.backgroundImage = 'url(img/'+(now+1)%3+'.png)';
+							ready = true;
+						}
+					}});
+				})(i);
+				i++;
+				if(i==aDiv.length){
+					clearInterval(timer);
+				}
+			},30);
+		};
+	};
+	</script>
+</head>
+<body>
+	<div id="box">
+
+	</div>
+	<input type="button" value="按钮" id="btn" />
+</body>
+</html>

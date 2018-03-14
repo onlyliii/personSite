@@ -1,0 +1,370 @@
+@charset "utf-8";
+/*reset start*/
+*{ margin: 0; padding: 0; list-style: none; }
+body { 
+	font-size: 16px;
+    font-family: '\5fae\8f6f\96c5\9ed1', sans-serif;
+}
+a { 
+	text-decoration: none;
+	color: #000;
+    outline: none;
+}
+
+/*common start*/
+.clearfix:after { content: ""; display: block; clear: both; }
+.clearfix { zoom: 1; }
+.fl { float: left; }
+.fr { float: right; }
+
+/*导航开始*/
+nav{
+    background: rgba(16,16,16,1);
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    position: fixed;
+    left: 0;
+    top: -60px;
+    transition: 0.5s all ease;
+    z-index: 9;
+}
+nav .con_wrap{ margin: 0 100px 0 150px; }
+nav a{
+    color: #fff;
+}
+nav a.active {
+    color: #1dd388;
+}
+nav .logo {
+	width: 115px;
+	height: 60px;
+	position:relative;
+	z-index:3;
+}
+nav .logo:before,nav .logo:after{
+	content:'';
+	position: absolute;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+	border:2px solid #1dd388;
+	margin: 0 -5px;
+	z-index:-1;
+}
+nav .logo:before{
+	animation:lineA 8s linear infinite;
+	-webkit-animation:lineA 8s linear infinite;
+}
+nav .logo:after{
+	animation:lineB 8s linear infinite;
+	-webkit-animation:lineB 8s linear infinite;
+}
+@keyframes lineA{
+	0%,100%{
+		clip:rect(0,125px,2px ,0);
+	}
+	25%{
+		clip:rect(0,2px,60px,0);
+	}
+	50%{
+		clip:rect(58px,125px,60px,0);
+	}
+	75%{
+		clip:rect(0,125px,60px,123px);
+	}
+}
+@keyframes lineB{
+	0%,100%{
+		clip:rect(58px,125px,60px ,0);
+	}
+	25%{
+		clip:rect(0,125px,60px,123px);
+	}
+	50%{
+		clip:rect(0px,125px,2px,0);
+	}
+	75%{
+		clip:rect(0,2px,60px,0);
+	}
+}
+nav .logo a{ font-size: 30px; color: #1dd388; }
+nav .menu li{
+	width: 80px;
+	text-align: center;
+    float: left;
+    margin: 0 10px;
+}
+nav .menu li a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+nav .menu li a .progress_bar{
+	width: 0;
+	height: 10px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	transition: 0.5s all ease;
+}
+nav .menu li a:hover {
+	color: #1dd388;
+}
+nav .menu li a:hover .progress_bar{
+	width: 100%;
+}
+nav .menu li a.active .progress_bar{
+	width: 100%;
+}
+/*section开始*/
+section { 
+	width: 100%; 
+	height: 662px;
+	color: #fff;
+	max-width: 1600px;
+	max-height: 900px;
+    overflow: hidden;
+}
+section h2{ 
+	font-size: 35px;
+	color: #fff;
+	text-align: center;
+	padding-top: 70px; 
+}
+section .con_wrap{
+	margin: 0 190px;
+}
+/*banner开始*/
+.banner {
+    background: url(../img/bg1.jpg) fixed;
+    background-size: 100% 100%;
+}
+.banner .con_wrap{
+    height: 100%;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+} 
+.banner .intro{
+    position: absolute;
+    width: 1000px;
+    height: 180px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+.banner .intro h3{
+    font-size: 50px;
+    color: #1dd388;
+    text-shadow: 1px 2px 2px #000,2px 4px 4px #fff;
+    margin: 0 auto;
+    text-align: center;
+}
+.banner .intro h4{
+	font-size: 30px;
+	text-shadow: 1px 2px 2px #000,2px 4px 4px #fff;
+    text-align: center;
+    margin: 0 auto;
+    color:#1dd388;
+}
+
+/*skills开始*/
+.skills .skillsCon{
+    margin-top: 50px;
+}
+.skills .skills_left{
+    width: 43%;
+}
+.skills .skills_left p{
+	font-size: 18px;
+	line-height: 26px;
+	margin: 10px 0;
+}
+.skills .skills_right{
+    width: 50%;
+}
+.skills .skills_right  div{
+    width: 100%;
+    height: 40px;
+    background: #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.skills .skills_right  p{
+    margin: 15px 0 5px;
+    font-size: 18px;
+    font-weight: 500;
+    text-shadow: 2px 2px 5px #FE4021;
+}
+.skills .skills_right  div span{
+    display: block;
+    width: 10px;
+    height: 100%;
+    background: #1DD388;
+    text-align: right;
+    line-height: 40px;
+    color: #FE4021;
+}
+
+/*h5作品区开始*/
+#h5ConWrap{
+    width:100%;
+}
+#h5Content{
+    width: 940px;
+    margin: 0 auto;
+}
+#h5Content li{
+    float: left;
+    width: 300px;
+    height: 140px;
+    margin-left: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    position: relative;
+}
+#h5Content li:nth-child(3n-2){
+    margin-left: 0;
+}
+#h5Content li img,#h5Content li a{
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    width:100%;
+    height:100%;
+    backface-visibility: hidden;
+    -webkit-transition: 0.5s all ease ;
+    transition: 0.5s all ease ;
+    perspective-origin:50% 50%;
+}
+#h5Content li img{
+    z-index:1;
+}
+#h5Content li a{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 140px;
+    color: #1DD388;
+    background: #b79862;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+#h5Content li:hover img{
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+#h5Content li:hover a{
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+/*js作品区开始*/
+#jsConWrap{
+    width:100%;
+}
+#jsContent{
+    width: 940px;
+    margin: 0 auto;
+}
+#jsContent li{
+    float: left;
+    width: 300px;
+    height: 140px;
+    margin-left: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+#jsContent li:nth-child(3n-2){
+    margin-left: 0;
+}
+
+#jsContent li a{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+#jsContent li a img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+#jsContent li a span{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 140px;
+    background: rgba(48, 48, 48, 0.5);
+    color: #1DD388;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 140px;
+}
+
+/*联系方式区开始*/
+.contact h2{
+    margin-bottom: 30px;
+}
+.contact #contact_left{
+    width: 40%;
+    font-size: 20px;
+    line-height: 30px;
+}
+.contact #contact_left span{
+    display: inline-block;
+    margin-right: 20px;
+}
+.contact #contact_right h4{
+    font-size: 24px;
+}
+.contact #contact_right input{
+    display: block;
+    width: 400px;
+    height: 36px;
+    background: #fff;
+    border: none;
+    margin-top: 10px;
+    padding-left: 15px;
+    font-size: 15px;
+    line-height: 36px;
+    color: #1DD388;
+    outline: none;
+}
+.contact #contact_right textarea{
+    resize: none;
+    width: 385px;
+    margin: 10px 0;
+    padding: 15px;
+    outline: none;
+    color: #1DD388;
+    font-size: 15px;
+    font-family: '\5fae\8f6f\96c5\9ed1', sans-serif;
+    border: none;
+}
+.contact #contact_right a{
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    width: 415px;
+    background: #1DD388;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    font-family: '\5fae\8f6f\96c5\9ed1', sans-serif;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS3时钟</title>
+	<style>
+		.click{ width: 300px; height: 300px; border: 3px solid #0f0; border-radius: 50%; margin: 50px auto; position: relative; background: url(3.jpg); }
+		.click p{ position: absolute; left: 50%; top: 50%; transform-origin: bottom; }
+		.step{ width: 30px; height: 30px; border-radius: 50%; background: -webkit-radial-gradient(#666,#000); margin-left: -15px; margin-top: -15px; }
+		.hours{ width: 20px; height: 80px; background: #000; margin-left: -10px; margin-top: -80px; border-radius: 50% 50% 0 0; }
+		.min{ width: 16px; height: 100px; background: #00f; margin-left: -8px; margin-top: -100px; border-radius: 50% 50% 0 0; }
+		.sec{ width: 10px; height: 120px; background: #f00; margin-left: -5px; margin-top: -120px; border-radius: 50% 50% 0 0; }
+	</style>
+	<script>
+	window.onload = function(){
+		var oH = document.querySelector('.hours');
+		var oM = document.querySelector('.min');
+		var oS = document.querySelector('.sec');
+
+		click();
+		function click(){
+			var oDate = new Date();
+			var nH = oDate.getHours();
+			var nM = oDate.getMinutes();
+			var nS = oDate.getSeconds();
+			var nMs = oDate.getMilliseconds();
+
+			var iH = nH%12*30 + nM/60*30;
+			var iM = nM*6 + nS/10;
+			var iS = nS*6 + nMs/1000*6;
+
+			oH.style.transform = 'rotate('+iH+'deg)';
+			oM.style.transform = 'rotate('+iM+'deg)';
+			oS.style.transform = 'rotate('+iS+'deg)';
+		}
+		setInterval(click,30);
+	};
+	</script>
+</head>
+<body>
+	<div class="click">
+		<p class="hours"></p>
+		<p class="min"></p>
+		<p class="sec"></p>
+		<p class="step"></p>
+	</div>
+</body>
+</html>

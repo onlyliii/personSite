@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas圆弧时钟</title>
+	<style>
+	canvas{ display: block; margin: 0 auto; }
+	</style>
+<script>
+function d2a(n){
+	return n/180*Math.PI;
+}
+window.onload = function () {
+	var oC = document.querySelector('canvas');
+	var gd = oC.getContext("2d");
+
+	var cx = 300;
+	var cy = 300;
+
+	clock();
+	setInterval(clock, 16);
+	function clock(){
+		gd.lineWidth = 15;
+		var oDate = new Date();
+		var oH = oDate.getHours();
+		var oM = oDate.getMinutes();
+		var oS = oDate.getSeconds();
+		var oMs = oDate.getMilliseconds();
+
+		gd.clearRect(0, 0, oC.width, oC.height);
+		draw( 70, (oH%12)*30+oM/60*6, 'green');
+		draw( 95, oM*6+oS/60*6, 'yellow');
+		draw( 120, oS*6+oMs/1000*6, 'purple');
+		//文字
+		gd.beginPath();
+		gd.lineWidth = 1;
+		gd.strokeStyle = 'red';
+		gd.textAlign = 'center';
+		gd.textBaseline = 'middle';
+		gd.font = '15px 宋体';
+		var str2 = '圆弧时钟';
+		gd.strokeText(str2, 300, 160);
+
+		//添加数字时钟
+		var str = oH +':'+ oM +':'+ oS;
+		gd.font = '20px 微软雅黑';
+		gd.fillStyle = '#0ff';
+		gd.fillText(str, 300, 300);
+
+	}
+
+	//画圆
+	function draw(r, d, color){
+		gd.beginPath();
+		gd.strokeStyle = color || 'red';
+		var start = d2a(-90);
+		var end = d2a(d-90);
+		gd.arc(cx, cy, r, start, end, false);
+		gd.stroke();
+	}
+};
+</script>
+</head>
+<body>
+	<canvas width="600" height="600"></canvas>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打字效果</title>
+	<style>
+	body{ background: #000; }
+	span{ font-size: 50px; font-family: "Microsoft Yahei"; transition: 1s all ease; text-shadow: 0 0 100px transparent; color: transparent; }
+	</style>
+	<script>
+	window.onload = function(){
+		var str = '在那期间，有一万五千名以上的商人，和专业者受过戴尔·卡耐基的训练。甚至于那些规模宏大，宁愿守旧，不轻易听信人的机构，像「西屋电器公司」，「马克意尔出版公司」，「白罗克联合煤气公司」，「白罗克商会」，「美国电气工程师协会」，和「纽约电话公司」等，也在自己机构里，为了他们普通职员和高级职员的便利，而举办了这种训练研究会这些人离开小学、中学、学院，已经十年或二十年了，再来接受这项训练，这是对我们教育制度上惊人欠缺的一项明显发现。他们要研究，学习些什么？这是一项重要的问题，为了要找出这个答案，芝加哥大学、美国成人教育协会，和联合青年会学校，曾经费了两年时间，付出两万五千元的代价，作了一次调查。那个调查显示出，成人们所最注意的是健康，其次是想知道更多些人与人之间关系发展上的技术，他们要学习与人交往和影响他人的技术。他们不希望成为一个演说家，也不要听那些离了谱的心理学…．：他们希望听到立即可以在事务上、社交上、家庭中，所能应用的建议。所以，那就是成人们所要研究学习的，是不是？';
+		var oBox = document.querySelector('div');
+		for(var i = 0; i < str.length; i++){
+			var oSpan = document.createElement('span');
+			oSpan.innerHTML = str.charAt(i);
+			oBox.appendChild(oSpan);
+		}
+		var aSpan = oBox.querySelectorAll('span');
+		var n = 0;
+		var timer = setInterval(function(){
+			aSpan[n].style.textShadow = '0 0 0 #fff';
+			n++;
+			if(n==aSpan.length){
+				clearInterval(timer);
+			}
+		}, 100);
+	};
+	</script>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

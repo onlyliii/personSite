@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>canvas进度条</title>
+<style>
+	body{ text-align:center;}
+	canvas{ border:1px solid red;}
+</style>
+<script>
+
+	function d2a(n){
+		return n/180*Math.PI;
+	}
+
+	window.onload=function(){
+		var oC=document.querySelector('canvas');
+			
+		var gd=oC.getContext('2d');
+		
+		
+		var cx=200;
+		var cy=200;
+		var r=80;
+		
+		var d=0;
+		
+		gd.lineWidth=20;
+		gd.strokeStyle='yellow';
+		
+		var iSpeed=5;
+		
+		var timer=setInterval(function(){
+			gd.clearRect(0,0,oC.width,oC.height);
+			d+=iSpeed;
+			var a=1-d/360;
+			var cur=360*(1-a*a*a);
+			gd.beginPath();
+			gd.arc(cx,cy,r,0,d2a(cur),false);	
+			gd.stroke();
+			
+			if(d==360){
+				clearInterval(timer);
+			}
+			
+		},16);
+		
+		
+	};
+</script>
+</head>
+
+<body>
+	<canvas width="800" height="600"></canvas>
+</body>
+</html>

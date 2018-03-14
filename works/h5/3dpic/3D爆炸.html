@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D爆炸效果</title>
+	<style>
+	body{ overflow: hidden; }
+	.box{ width: 800px; height: 360px; background: url(img/2.jpg); margin: 100px auto; position: relative; transform: perspective(800px) translateX(0px) translateY(0px);}
+	/*span{ position: absolute; transition: 1s all ease; }*/
+	</style>
+	<script>
+	function rnd(n,m){
+		return parseInt(Math.random()*(m-n)+n);
+	}
+	window.onload = function () {
+		var oBox = document.querySelector('.box');
+		var c = 8;
+		var r = 4;
+		var iNow = 0;
+		for(var i = 0; i < r; i++){
+			for(var j = 0; j < c; j++){
+				var oSpan = document.createElement('span');
+				oSpan.style.width = oBox.offsetWidth/c + 'px';
+				oSpan.style.height = oBox.offsetHeight/r + 'px';
+				oSpan.style.position = 'absolute';
+				oBox.appendChild(oSpan);
+				oSpan.style.left = oSpan.offsetWidth*j + 'px';
+				oSpan.style.top = oSpan.offsetHeight*i + 'px';
+				oSpan.style.background = 'url(img/1.jpg) '+-oSpan.offsetWidth*j+'px '+-oSpan.offsetHeight*i+'px';
+				//oSpan.style.backgroundPosition = -oSpan.offsetWidth*j+'px '+-oSpan.offsetHeight*i+'px';
+			}
+		}
+		var aSpan = oBox.children;
+		var bReady = true;
+		oBox.onclick = function(){
+			if(!bReady) return;
+			bReady = false;
+			iNow++;
+			for(var i = 0; i < aSpan.length; i++){
+				aSpan[i].style.WebkitTransition= '1s all ease';
+				var x = aSpan[i].offsetLeft+aSpan[i].offsetWidth/2-oBox.offsetWidth/2;
+				var y = aSpan[i].offsetTop+aSpan[i].offsetHeight/2-oBox.offsetHeight/2;
+				aSpan[i].style.WebkitTransform = 'perspective(800px) translateX('+x+'px) translateY('+y+'px) rotateX('+rnd(0,180)+'deg) rotateY('+rnd(0,180)+'deg) scale(1.5)';
+				aSpan[i].style.opacity = 0;
+			}
+		};
+		aSpan[0].addEventListener('transitionend', function(){
+			for(var i = 0; i < aSpan.length; i++){
+				aSpan[i].style.transition = 'none';
+				aSpan[i].style.WebkitTransform = 'perspective(800px) translateX(0px) translateY(0px) rotateX(0deg) rotateY(0deg) scale(1)';
+				aSpan[i].style.opacity = 1;
+				aSpan[i].style.backgroundImage = 'url(img/'+((iNow%6)+1)+'.jpg)';
+			}
+			oBox.style.backgroundImage = 'url(img/'+(((iNow%6)+1)%6+1)+'.jpg)';
+			bReady = true;
+		}, false);
+	};
+	</script>
+</head>
+<body>
+	<div class="box"></div>
+</body>
+</html>

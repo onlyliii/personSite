@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>贴吧时钟</title>
+    <style>
+        *{ margin: 0; padding: 0; list-style: none;}
+        #ul1{ width: 216px; margin: 20px auto;}
+        #ul1 li { width: 24px; height: 35px; overflow: hidden; float: left; position: relative; margin-left: 3px;}
+        #ul1 li img{position: absolute; top: 0;}
+        #ul1 li span{ display: block; width: 24px;height: 35px; font-size: 30px; text-align: center; color: #ff9300;}
+    </style>
+    <script>
+        function getStyle(obj, sName) {
+            return (obj.currentStyle || getComputedStyle(obj, false))[sName];
+        }
+        function startMove(obj, sName, iTarget, duration) {
+            var start = parseFloat(getStyle(obj, sName));
+            var dis = iTarget - start;
+            var count = Math.floor(duration / 30);
+            var n = 0;
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                n++;
+                var cur = start + dis * n / count;
+                if (sName == 'opacity') {
+                    obj.style.opacity = cur;
+                    obj.style.filter = 'alpha(opacity:' + cur * 100 + ')';
+                } else {
+                    obj.style[sName] = cur + 'px';
+                }
+                if (n == count) {
+                    clearInterval(obj.timer);
+                }
+            }, 30);
+        }
+        function addZero(n){
+            return n < 10 ? '0'+n : ''+n;
+        }
+        window.onload = function(){
+            var oUl = document.getElementById('ul1');
+            var aImg = oUl.getElementsByTagName('img');
+            var str = '230736';
+            clock();
+            setInterval(clock,1000);
+
+            function clock(){
+                var oDate = new Date();
+                var iH = oDate.getHours();
+                var iM = oDate.getMinutes();
+                var iS = oDate.getSeconds();
+                var str = addZero(iH) + addZero(iM) + addZero(iS);
+                for(var i = 0; i < str.length; i++){
+                    startMove(aImg[i],'top',-str.charAt(i)*35,300);
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li><img src="num.png" alt=""/></li>
+    <li><img src="num.png" alt=""/></li>
+    <li><span>:</span></li>
+    <li><img src="num.png" alt=""/></li>
+    <li><img src="num.png" alt=""/></li>
+    <li><span>:</span></li>
+    <li><img src="num.png" alt=""/></li>
+    <li><img src="num.png" alt=""/></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>穿墙</title>
+	<style>
+		*{margin:0; padding:0;}
+		ul{overflow:hidden; width:630px; margin:100px auto;}
+		li{width:200px; height:200px; background:#ccc; font-size:30px; font-weight:bold; line-height:200px; overflow:hidden; float:left; margin:5px; position:relative; top:0; left:0;}
+		li span{position:absolute; top:0; left:-200px; width:100%; height:100%; background:red; opacity:0.4; filter:alpha(opacity:40);}
+	</style>
+<script>
+function a2d(a){
+    return a*180/Math.PI;
+}
+//判断移入的方向
+function hoverDir(obj,oEvent){
+    var x = obj.offsetLeft+obj.offsetWidth/2-oEvent.clientX;
+    var y = obj.offsetTop+obj.offsetHeight/2-oEvent.clientY;
+    return Math.round((a2d(Math.atan2(y,x))+180)/90)%4;
+}
+function hoverGo(obj){
+    var oS = obj.children[0];
+    obj.onmouseover=function(ev){
+        var oEvent = ev||event;
+        var oFrom = oEvent.fromElement||oEvent.relatedTarget;
+        if(obj.contains(oFrom))return;
+        var dir = hoverDir(obj,oEvent);
+　　　　　//根据方向重新设定遮罩层位置
+        switch(dir){
+            case 0:
+                oS.style.left = '200px';
+                oS.style.top = 0;
+                break;
+            case 1:
+                oS.style.left = 0;
+                oS.style.top = '200px';
+                break;
+            case 2:
+                oS.style.left = '-200px';
+                oS.style.top = 0;
+                break;
+            case 3:
+                oS.style.left = 0;
+                oS.style.top = '-200px';
+                break;
+        }
+        startMove(oS,{top:0,left:0});
+    };
+    obj.onmouseout=function(ev){
+        var oEvent = ev||event;
+        var oTo = oEvent.toElement||oEvent.relatedTarget;
+        if(obj.contains(oTo))return;
+        var dir = hoverDir(obj,oEvent);
+　　　　　//根据移除的方向遮罩层进行相应的运动
+        switch(dir){
+            case 0:
+                startMove(oS,{left:200,top:0});
+                break;
+            case 1:
+                startMove(oS,{left:0,top:200});
+                break;
+            case 2:
+                startMove(oS,{left:-200,top:0});
+                break;
+            case 3:
+                startMove(oS,{left:0,top:-200});
+                break;
+        }
+    };
+}
+window.onload=function(){
+    var oUl = document.body.children[0];
+    var aLi = oUl.children;
+    for(var i=0;i<aLi.length;i++){
+        hoverGo(aLi[i]);
+    }
+};
+
+function getStyle(obj,sName){
+    return (obj.currentStyle||getComputedStyle(obj,false))[sName];
+}
+//运动框架
+function startMove(obj,json,options){
+    options=options||{};
+    options.time = options.time||700;
+    options.type = options.type||'ease-out';
+    var start = {};
+    var dis = {};
+    for(var name in json){
+        start[name] = parseFloat(getStyle(obj,name));
+        if(isNaN(start[name])){
+            switch(name){
+                case 'top':
+                    start[name] = obj.offsetTop;
+                    break;
+                case 'left':
+                    start[name] = obj.offsetLeft;
+                    break;
+                case 'width':
+                    start[name] = obj.offsetWidth;
+                    break;
+                case 'height':
+                    start[name] = obj.offsetHeight;
+                    break;
+                case 'opacity':
+                    start[name] = 1;
+                    break;
+                case 'borderWidth':
+                    start[name] = 0;
+                    break;
+            }
+        }
+        dis[name] = json[name]-start[name];
+    }
+    var count = Math.floor(options.time/30);
+    var n = 0;
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        n++;
+        for(var name in json){
+            switch(options.type){
+                case 'linear':
+                    var cur = start[name]+dis[name]*n/count;
+                    break;
+                case 'ease-in':
+                    var a = n/count;
+                    var cur = start[name]+dis[name]*Math.pow(a,3);
+                    break;
+                case 'ease-out':
+                    var a = 1-n/count;
+                    var cur = start[name]+dis[name]*(1-Math.pow(a,3));
+                    break;
+            }
+            if(name=='opacity'){
+                obj.style.opacity=cur;
+                obj.style.filter='alpha(opacity:'+cur*100+')';
+            }else{
+                obj.style[name] = cur+'px';
+            }
+        }
+        if(n==count){
+            clearInterval(obj.timer);
+            options.end&&options.end();
+        }
+    },30);
+}
+</script>
+</head>
+<body>
+<ul>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+</ul>
+</body>
+</html>

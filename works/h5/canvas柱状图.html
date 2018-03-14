@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>canvas柱状图</title>
+<style>
+	*{ padding:0; margin:0;}
+	canvas{ border:1px solid blue; margin:0 auto; display:block;}
+</style>
+<script>
+	window.onload=function(){
+		var oC=document.querySelector('#oc');
+		var gd=oC.getContext('2d');
+		
+		var arr=[89,66,12,128,45,100,60];
+		
+		
+		var aH=[];
+		
+		//求出最高的那个数
+		var max=Math.max.apply(null,arr);
+		for(var i=0; i<arr.length;i++){
+			aH[i]=arr[i]/max*oC.height;
+		}
+		
+		var oW=oC.width/(aH.length*3-2);
+		var oSpace=oW*2;
+		
+		for(var i=0; i<aH.length;i++){
+			gd.fillRect(oW*i+oSpace*i,oC.height-aH[i],oW,aH[i]);
+		}
+			
+	};
+</script>
+</head>
+
+<body>
+	<canvas width="600" height="600" id="oc">抱歉，您的浏览器版本太低</canvas>
+</body>
+</html>
+
+
+
+
+
+
+
+

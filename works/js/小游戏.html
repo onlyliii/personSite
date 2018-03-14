@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小游戏</title>
+	<style>
+		.box{ width: 100px; height: 100px; background: #0cc; position: absolute; left: 0; top: 0; border-radius: 50%; }
+	</style>
+<script>
+var count = 0;
+window.onload = function(){
+	for(var i=0;i<20;i++){
+		setTimeout(addBox,Math.random()*10000);
+	}
+
+};
+function addBox(){
+	var oBox = document.createElement('div');
+	oBox.className = 'box';
+	var speedX = rnd(15,60);
+	var speedY = rnd(5,40);
+	var r = rnd(0,256);
+	var g = rnd(0,256);
+	var b = rnd(0,256);
+	oBox.style.background = 'rgb('+r+','+g+','+b+')';
+	document.body.appendChild(oBox);
+	drag(oBox);
+	move(oBox,speedX,speedY);
+}
+function rnd(n,m){
+	return parseInt(Math.random()*(m - n) + n);
+}
+function drag(obj){
+	//var oDiv = document.getElementById('div1');
+	obj.onmousedown = function(ev){
+		clearInterval(obj.timer);
+		clearTimeout(obj.timer2);
+		var lastX = 0, lastY = 0;
+		var speedX = 0, speedY = 0;
+		var oEvent = ev || event;
+		var disX = oEvent.clientX - obj.offsetLeft;
+		var disY = oEvent.clientY - obj.offsetTop;
+		document.onmousemove = function(ev){
+			var oEvent = ev || event;
+			var l = oEvent.clientX - disX;
+			var t = oEvent.clientY - disY;
+
+			lastX = obj.offsetLeft;
+			lastY = obj.offsetTop;
+
+			obj.style.left = l + 'px';
+			obj.style.top = t + 'px';
+		};
+		document.onmouseup = function(){
+			document.onmousemove = document.onmouseup = null;
+			speedX = obj.offsetLeft - lastX;
+			speedY = obj.offsetTop - lastY;
+			move(obj,speedX,speedY);
+		};
+		return false;
+	};
+}
+
+function move(obj,speedX,speedY){
+	clearInterval(obj.timer);
+	obj.timer = setInterval(function(){
+		speedY +=3;
+		var l = obj.offsetLeft + speedX;
+		var t = obj.offsetTop + speedY;
+		if(l>document.documentElement.clientWidth - obj.offsetWidth){
+			l = document.documentElement.clientWidth - obj.offsetWidth;
+			speedX *= -0.8;
+			speedY *= 0.8;
+		}else if(l < 0){
+			l = 0;
+			speedX *= -0.8;
+			speedY *= 0.8;
+		}
+		if(t>document.documentElement.clientHeight - obj.offsetHeight){
+			t = document.documentElement.clientHeight - obj.offsetHeight;
+			speedY *= -0.8;
+			speedX *= 0.8;
+		}else if(t < 0 ){
+			t = 0;
+			speedY *= -0.8;
+			speedX *= 0.8;
+		}
+		obj.style.left = l + 'px';
+		obj.style.top = t + 'px';
+		if(Math.abs(speedX)<1) speedX = 0;
+		if(Math.abs(speedY)<1) speedY = 0;
+		if(speedX == 0 && speedY == 0 && document.documentElement.clientHeight - obj.offsetHeight == obj.offsetTop){
+			clearInterval(obj.timer);
+			obj.timer2 = setTimeout(function(){
+				document.body.removeChild(obj);
+				count++;
+				if(count == 20){
+					alert('game over!');
+				}
+			},1000);
+
+		}
+	},30);
+}
+</script>
+</head>
+<body>
+	<div id="div1"></div>
+	<div id="div2"></div>
+</body>
+</html>

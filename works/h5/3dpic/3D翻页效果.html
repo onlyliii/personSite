@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D翻页效果</title>
+	<style>
+	*{ margin: 0; padding: 0; list-style: none; }
+	body{ overflow: hidden; }
+	.box{ width: 800px; height: 360px; margin: 100px auto;	position: relative; background: url(img/1.jpg);}
+	.box p { width: 50%; height: 100%; position: absolute; right: 0; top: 0; }
+	.page{ transition: 1s all ease; transform-style: preserve-3d; transform: perspective(800px) rotate(0deg); transform-origin: left; z-index: 1; }
+	.page span{ width: 100%; height: 100%; position: absolute; left: 0; top: 0; }
+	.front{  background: url(img/1.jpg) right 0; transform: translateZ(1px); }
+	.back{  background: url(img/2.jpg); transform: translateZ(-1px) scale(-1,1); }
+	.page2{ background: url(img/2.jpg) right 0; }
+	/*.box:hover .page{ transform: perspective(800px) rotateY(-180deg); }*/
+	</style>
+	<script>
+	window.onload = function(){
+		var oBox = document.querySelector('.box');
+		var oPage = document.querySelector('.page');
+		var oF = document.querySelector('.front');
+		var oB = document.querySelector('.back');
+		var oP2 = document.querySelector('.page2');
+
+		var iNow = 0;
+		var bReady = true;
+		oBox.onclick = function () {
+			if(!bReady)	return;
+			bReady = false;
+			oPage.style.transition = '1s all ease';
+			oPage.style.transform = 'perspective(800px) rotateY(-180deg)';
+			iNow++;
+		};
+		oPage.addEventListener('transitionend', function(){
+			oPage.style.transition = 'none';
+			oPage.style.transform = 'perspective(800px) rotateY(0deg)';
+			oBox.style.background = 'url(img/'+((iNow%6)+1)+'.jpg)';
+			oF.style.background = 'url(img/'+((iNow%6)+1)+'.jpg) right 0';
+			oB.style.background = 'url(img/'+(((iNow%6)+1)%6+1)+'.jpg)';
+			oP2.style.background = 'url(img/'+(((iNow%6)+1)%6+1)+'.jpg) right 0';
+			bReady = true;
+		}, false);
+	};
+	</script>
+</head>
+<body>
+	<div class="box">
+		<p class="page">
+			<span class="front"></span>
+			<span class="back"></span>
+		</p>
+		<p class="page2"></p>
+	</div>
+</body>
+</html>

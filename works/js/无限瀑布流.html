@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>瀑布流</title>
+<style>
+*{ margin: 0; padding: 0; list-style: none;}
+#div1 { width: 966px; margin: 0 auto;}
+#div1 ul { width: 300px; margin: 0 10px; border: 1px solid red; float: left; background: #0cc;}
+#div1 ul li { width: 100%; background: #f90; margin-top: 10px;}
+</style>
+<script>
+window.onload = function() {
+	var oDiv = document.getElementById('div1');
+	var aUl = oDiv.children;
+	function createLi(n){
+		for(var i=0; i<n; i++){
+			var oLi = document.createElement('li');
+			oLi.style.height = Math.floor(Math.random()*100 + 300) + 'px';
+			var arr = [];
+			for(var j = 0; j < aUl.length; j++){
+				arr.push(aUl[j]);
+			}
+			arr.sort(function(oUl1,oUl2){
+				return oUl1.offsetHeight - oUl2.offsetHeight;
+			});
+			arr[0].appendChild(oLi);
+		}
+	}
+	createLi(20);
+	window.onscroll = function(){
+		var bodyH = document.body.scrollHeight;
+		var clientH = document.documentElement.clientHeight;
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		
+		if(bodyH <= clientH + scrollTop){
+			createLi(10);
+		}
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<ul></ul>
+	<ul></ul>
+	<ul></ul>
+</div>
+</body>
+</html>

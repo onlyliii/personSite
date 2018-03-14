@@ -1,0 +1,58 @@
+*{ margin: 0; padding: 0; list-style: none; }
+body{ font-family: "Microsoft Yahei"; }
+/* 头部开始 */
+header{ width: 16rem; height: 2.5rem; background: -webkit-linear-gradient(#fff,#ebebeb); position: relative; }
+header a,h1{ text-indent: -9999em; position: absolute; }
+header h1{ width: 3.7rem; height: 0.975rem; background: url(../img/logo.png); background-size: 100%; left: 50%; top: 50%; margin-top: -0.4875rem; margin-left: -1.85rem;  }
+header a{ width: 3rem; height: 1.4rem;background: url(../img/back.png); background-size: 100%; position: absolute; margin-left: 0.55rem; margin-top: 0.55rem; }
+/* banner开始 */
+.banner img{ width: 16rem; height: 6.65rem; vertical-align: top; }
+.banner ol { display: -webkit-box; -webkit-box-pack: center; padding: 0.25rem;  }
+.banner ol li{ width: 0.25rem; height: 0.25rem; background: #a9a9a9; border-radius: 50%; margin: 0 0.125rem; }
+.banner ol li.active{ background: #ff4300; }
+/* 分类开始 */
+.list{ overflow: hidden; }
+.list li{ width: 4rem; float: left; margin-top: 1rem; }
+.list .icon{ width: 2rem; height: 2rem; background-image:url(../img/icon.png); background-size: 100%; text-indent: -9999em; display: block; margin: 0 auto; margin-bottom: 0.4rem; }
+.icon1{ background-position: 0 0; }
+.icon2{ background-position: 0 -2.025rem; }
+.icon3{ background-position: 0 -4.05rem; }
+.icon4{ background-position: 0 -6.075rem; }
+.list li h3{ font-size: 0.6rem; text-align: center; font-weight: normal; color: #000; }
+/* 内容开始 */
+.content{ margin-top: 1.05rem; padding: 0 0.5rem; width: 15rem; }
+.title{ height: 1.8rem; border-bottom: 0.1rem solid #dcdcdc; font-size: 0.7rem; overflow: hidden;  }
+.title a{ float: left; text-decoration: none; color: #000; margin: 0.525rem 0; padding-left: 0.6rem; border-left: 0.1rem solid #d51938; }
+.title span{ float: right; margin: 0.525rem 0; }
+/* 热卖排行开始 */
+.hot{ padding-top: 0.25rem; }
+.hot li{ overflow: hidden; background: #f4f4f4; margin-top: 0.5rem; }
+.hot li i{ display: block; width: 1.5rem; height: 3rem; background: #e00202; color: #fff; text-align: center; line-height: 3rem; font-style: normal; float: left; }
+.hot li img{ width: 4.5rem; height: 3rem; float: left; }
+.hot li div{ font-size: 0.6rem; line-height: 0.9rem; margin-top: 0.7rem; margin-left: 0.55rem; float: left; color: #999; }
+.hot li span{ float: right; font-size: 0.8rem; color: #d51938; background: url(../img/tip.png) right center no-repeat; background-size:6.5px 11px; margin-right: 0.5rem; margin-top: 1rem; padding-right: 0.45rem; }
+/* more */
+.info{ height: 2rem; background: #f5f5f5; margin: 0.5rem 0; text-align: center; line-height: 2rem; position: relative;}
+.info a{ text-decoration: none; color: #666666; }
+.info i{ position: absolute; background: url(../img/tip.png) right center no-repeat; background-size:100%; width: 0.2rem; height: 0.3rem; right: 0.5rem; top: 0.8rem; }
+/* 各种团开始 */
+dl{ overflow: hidden; }
+dt,dd{ float: left; position: relative; width: 3.75rem; }
+dt{ height: 8.75rem; background: #ff3900; text-align: center; color: #fff; font-size: 0.65rem;}
+dt p{ padding-top: 0.65rem; }
+dt span{ position: absolute; width: 2.6rem; height: 3.35rem; background: url(../img/pic1.png) no-repeat; background-size: 100%; left: 0; bottom: 0; }
+dl dd{ box-sizing: border-box; height: 2.2rem; text-align: center; line-height: 2.2rem; border-bottom: 1px solid #eee; border-right: 1px solid #eee; font-size: 0.7rem; color: #999; }
+dd.bt{ border-top: 1px solid #eee; }
+dd.color{ color: #d51942; }
+/* 客户端开始 */
+.conBottom{ padding-top: 0.55rem; overflow: hidden; }
+.conBottom img{ float: left; width: 5rem; height: 4rem; }
+
+.bottom{ background: #f8f8f8; margin-top: 0.45rem; font-size: 0.7rem; padding: 0 0.75rem; position: relative; }
+.bottom div{ height: 2.2rem;  line-height: 2.2rem; }
+.bottom a{ color: #333333; text-decoration: none; margin-right: 1.2rem; }
+.bottom span{ position: absolute; width: 2.5rem; height: 0.8rem; right: 0.75rem; top: 50%; margin-top: -0.47rem; background: url(../img/totop.png) right center no-repeat; background-size: 25%; }
+/* 底部开始 */
+.foot p{ text-align: center; font-size: 0.7rem; padding: 1.05rem 0 0.8rem; background: #eeeeee; }
+.foot p a{ color: #333333; text-decoration: none; margin: 0 0.325rem;  }
+.foot .copy{ text-align: center; font-size: 0.55rem; padding-bottom: 0.65rem; background: #eeeeee; color: #999999; }

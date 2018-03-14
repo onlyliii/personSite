@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无缝滚动</title>
+<style>
+*{margin:0; padding:0; list-style:none; text-decoration:none;}
+#box{width:700px; height:397px; margin:100px auto; position:relative; top:0; left:0; overflow:hidden;}
+#box ul{ position:absolute; top:0; left:0;}
+#box ul li{ float:left;width:700px;}
+#box ul li img{width:100%;}
+#box ol{width:250px; position:absolute; left:50%; bottom:20px; margin-left:-125px;}
+#box ol li{width:30px; height:30px; background:rgba(0,0,0,0.4); float:left; border-radius:50%; text-indent:-99999px; margin:0 10px;}
+#box ol li.active{ background:rgba(255,255,102,1);}
+#box a{ position:absolute; width:80px; height:80px; text-align:center; line-height:80px; top:50%; margin-top:-40px; font-size:30px; color:#fff; background:rgba(0,0,0,0.5); display:none;}
+#box a:hover{background:rgba(255,255,102,0.5);}
+#prev{left:0;}
+#next{right:0;}
+</style>
+<script src='move4.js'></script>
+<script>
+window.onload=function(){
+	var oBox = document.getElementById('box');
+	var oUl = oBox.children[0];
+	var oOl = oBox.children[1];
+	var aLi = oUl.children;
+	var aBtn = oOl.children;
+	var oPrev = document.getElementById('prev');
+	var oNext = document.getElementById('next');
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width = aLi.length*aLi[0].offsetWidth+'px';
+	var W = oUl.offsetWidth/2;
+	var iNow = 0;
+	var bClick = true;
+	oBox.onmouseover=function(){
+		oPrev.style.display='block';
+		oNext.style.display='block';
+	};
+	oBox.onmouseout=function(){
+		oPrev.style.display='none';
+		oNext.style.display='none';
+	};
+	for(var i = 0; i<aBtn.length; i++){
+		(function(index){
+			aBtn[i].onclick = function(){
+				iNow = index;
+				tab();
+			};
+		})(i);
+	}
+	oPrev.onclick = function(){
+		if(!bClick)return;
+		bClick = false;
+		iNow--;
+		if(iNow==-1){
+			oUl.style.left = -W+'px';
+			iNow = 4;
+		}
+		tab();
+	};
+	oNext.onclick = function(){
+		if(!bClick)return;
+		bClick = false;
+		iNow++;
+		tab();
+	};
+	function tab(){
+		for (var i = 0; i < aBtn.length; i++) {
+			aBtn[i].className = '';
+		}
+		if(iNow==5){
+			aBtn[0].className = 'active';
+		}else{
+			aBtn[iNow].className = 'active';
+		}
+		startMove(oUl,{left:-iNow*aLi[0].offsetWidth},{complete:function(){
+			if(iNow==5){
+				oUl.style.left = 0;
+				iNow = 0;
+			}
+			bClick = true;
+		}});
+	}
+
+};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<ul>
+		<li><img src="img/0.jpg" /></li>
+		<li><img src="img/1.jpg" /></li>
+		<li><img src="img/2.jpg" /></li>
+		<li><img src="img/3.jpg" /></li>
+		<li><img src="img/4.jpg" /></li>
+	</ul>
+	<ol>
+		<li class="active">0</li>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ol>
+	<a href="javascript:;" id="prev">prev</a>
+	<a href="javascript:;" id="next">next</a>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

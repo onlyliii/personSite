@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>饼图</title>
+	<script>
+	function d2a(n){
+		return n/180*Math.PI;
+	}
+	function rnd(n,m){
+		return parseInt(Math.random()*(m-n)+n);
+	}
+	window.onload = function(){
+		var oC = document.getElementById('canvas');
+		var gd = oC.getContext('2d');
+		var arr = [10,20,30,40,50];
+
+		var sum = 0;
+		var arrD = [];
+		for (var i = 0; i < arr.length; i++) {
+			sum+=arr[i];
+		}
+		for (var i = 0; i < arr.length; i++) {
+			arrD[i] = arr[i]/sum*360;
+		}
+		var d = 0;
+		for (var i = 0; i < arr.length; i++) {
+			//arrD[i] = arr[i]/sum*360;
+			drawArc(d,d+arrD[i]);
+			d += arrD[i];
+		}
+
+		function drawArc(start,end){
+			gd.beginPath();
+			gd.moveTo(300, 300);
+			gd.fillStyle = 'rgba('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+',1)';
+			gd.arc(300, 300, 100, d2a(start), d2a(end), false);
+			gd.fill();
+		}
+	};
+	</script>
+</head>
+<body>
+	<canvas id="canvas" width="600" height="600"></canvas>
+</body>
+</html>

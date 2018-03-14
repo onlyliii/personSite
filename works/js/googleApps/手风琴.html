@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>手风琴</title>
+    <style>
+        *{margin: 0; padding: 0; list-style: none;}
+        ul{ position: relative; width: 740px; height: 360px; margin: 50px auto; overflow: hidden;}
+        ul li{ width: 660px; height: 360px; position: absolute; top: 0;}
+        ul li span{ width: 20px; height: 100%; display: inline-block;}
+        ul li img{ width: 640px; height: 360px;}
+    </style>
+    <script>
+    function getStyle(obj, sName) {
+        return (obj.currentStyle || getComputedStyle(obj, false))[sName];
+    }
+    function startMove(obj, sName, iTarget, duration) {
+        var start = parseFloat(getStyle(obj, sName));
+        var dis = iTarget - start;
+        var count = Math.floor(duration / 30);
+        var n = 0;
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+            n++;
+            var a = 1 - n/count
+            var cur = start + dis * (1 - Math.pow(a,3));
+            if (sName == 'opacity') {
+                obj.style.opacity = cur;
+                obj.style.filter = 'alpha(opacity:' + cur * 100 + ')';
+            } else {
+                obj.style[sName] = cur + 'px';
+            }
+            if (n == count) {
+                clearInterval(obj.timer);
+            }
+        }, 30);
+    }
+    window.onload = function(){
+        var oUl = document.getElementById('ul1');
+        var aLi = oUl.children;
+        var aSpan = oUl.getElementsByTagName('span');
+        for(var i=0; i<aLi.length; i++){
+            (function(index){
+                aLi[i].style.zIndex = i;
+                aLi[i].style.left = i*aSpan[0].offsetWidth+'px';
+                aSpan[i].onmouseover = function(){
+                    for(var n=0;n<index+1;n++){
+                        startMove(aLi[n],'left',n*aSpan[0].offsetWidth,1000);
+                    }
+                    for(var m=index+1; m<aLi.length+1;m++){
+                        if(m == 5) return;
+                        startMove(aLi[m],'left',m*aSpan[0].offsetWidth+640,1000);
+                    }
+                };
+            })(i);
+        }
+    };
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul id="ul1">
+        <li><span style="background:#0cc;"></span><img src="images/1.jpg" alt=""/></li>
+        <li><span style="background:#cc002f;"></span><img src="images/2.jpg" alt=""/></li>
+        <li><span style="background:#cc00cc;"></span><img src="images/3.jpg" alt=""/></li>
+        <li><span style="background:#1000cc;"></span><img src="images/4.jpg" alt=""/></li>
+        <li><span style="background:#00cc08;"></span><img src="images/5.jpg" alt=""/></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>百度贴吧时钟</title>
+<style>
+*{margin:0; padding:0; list-style:none;}
+
+ul{width:264px; margin:100px auto;}
+li{float:left; width:24px; height:35px; margin:0 10px; position:relative; overflow:hidden; }
+li img{position:absolute; top:0; left:0;}
+</style>
+<script>
+'use strict';
+function toDou(iNum){
+	return iNum<10?'0'+iNum:''+iNum;
+}
+function getStyle(obj,sName){
+	return (obj.currentStyle||getComputedStyle(obj,false))[sName];
+}
+function startMove(obj,json,duration,easing){
+	var start = {};
+	var dis = {};
+	for(var name in json){
+		start[name] = parseFloat(getStyle(obj,name));
+		dis[name] = json[name] - start[name];
+	}
+	var count = Math.floor(duration/30);
+	var n = 0;
+	clearInterval(obj.timer);
+	obj.timer = setInterval(function(){
+		n++;
+		for(var name in json){
+			switch(easing){
+				case 'linear':
+					var cur = start[name]+dis[name]*n/count;
+					break;
+				case 'ease-in':
+					var a = n/count;
+					var cur = start[name]+dis[name]*Math.pow(a,3);
+					break;
+				case 'ease-out':
+					var a = 1-n/count;
+					var cur = start[name]+dis[name]*(1-Math.pow(a,3));
+					break;
+			}
+			if(name=='opacity'){
+				obj.style.opacity = cur;
+				obj.style.filter = 'alpha(opacity:'+cur*100+')';
+			}else{
+				obj.style[name] = cur+'px';
+			}
+		}
+		if(n==count){
+			clearInterval(obj.timer);
+		}
+	},30);
+}
+window.onload=function(){
+	var aImg = document.getElementsByTagName('img');
+	function tick(){
+		var oDate = new Date();
+		var h = oDate.getHours();
+		var m = oDate.getMinutes();
+		var s = oDate.getSeconds();
+		var str = toDou(h)+toDou(m)+toDou(s);
+		for(var i=0;i<str.length;i++){
+			startMove(aImg[i],{top:-str.charAt(i)*35},300,'ease-out');
+		}
+	}
+	tick();
+	setInterval(tick,1000);
+};
+</script>
+</head>
+
+<body>
+<ul>
+	<li><img src="num.png" /></li>
+	<li><img src="num.png" /></li>
+	<li><img src="num.png" /></li>
+	<li><img src="num.png" /></li>
+	<li><img src="num.png" /></li>
+	<li><img src="num.png" /></li>
+</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

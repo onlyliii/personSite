@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>倒计时幻灯片</title>
+<style>
+*{ margin: 0; padding: 0; list-style: none;}
+#div1{ width: 500px; height: 300px; position: relative; margin: 10px auto; overflow: hidden;}
+#div1 ul{ position: absolute; left: 0; top: 0; font-size: 300%;}
+#div1 ul li { width: 500px; height: 300px; float: left;}
+#div1 ol { position: absolute; bottom: 30px; left: 50%; margin-left: -200px;}
+#div1 ol li{ width: 80px; height: 20px; float: left; background: #ccc; margin: 0 10px;}
+#div1 ol li span{ width: 0px; background: #00c; height: 20px; display: block;}
+</style>
+<script src='move4.js'></script>
+<script>
+window.onload = function(){
+	var oDiv = document.getElementById('div1');
+	var aSpan = document.getElementsByTagName('span');
+	var oUl = oDiv.children[0];
+	var now = 0;
+	oUl.style.width = oUl.children.length*500+'px';
+	var pause = false;
+	next();
+	function next(){
+		startMove(aSpan[now],{width:80},{easing:'linear',duration:1000,complete:function(){
+			aSpan[now].style.width = 0;
+			now++;
+			now%=aSpan.length;
+			startMove(oUl,{left:-now*500},{complete:function(){
+				if(!pause){
+					next();
+				}
+			}});
+		}});
+	}
+	oDiv.onmouseover = function(){
+		pause = true;
+		clearInterval(aSpan[now].timer);
+		aSpan[now].style.width = 0;
+	};
+	oDiv.onmouseout = function(){
+		pause = false;
+		next();
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<ul>
+		<li style="background: #0cc;">0</li>
+		<li style="background: #f90;">1</li>
+		<li style="background: #c00;">2</li>
+		<li style="background: #0c0;">3</li>
+	</ul>
+	<ol>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+	</ol>
+</div>
+</body>
+</html>

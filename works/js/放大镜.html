@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>放大镜</title>
+<style>
+* { margin:0; padding:0;}
+#div1{ width: 480px; height: 270px; position: relative; margin-left: 10px; margin-top: 10px; float: left;}
+#div1 img{ width: 100%; height: 100%;}
+#div1 span{ width: 160px; height: 90px;
+	position: absolute; left: 0; top: 0;
+	background: #f00; opacity: 0.3;
+	display: none;
+}
+#div2{ width: 480px; height: 270px;
+	overflow: hidden;
+	position: relative;
+	margin-left: 10px;
+	margin-top: 10px;
+	float: left;
+	display: none;
+}
+#img{ position: absolute;}
+</style>
+<script>
+window.onload = function(){
+	var oDiv1 = document.getElementById('div1');
+	var oDiv2 = document.getElementById('div2');
+	var oSpan = document.getElementById('span');
+	var oImg = document.getElementById('img');
+
+	oDiv1.onmousemove = function(ev){
+		var oEvent = ev || event;
+		var l = oEvent.clientX - oDiv1.offsetLeft - oSpan.offsetWidth/2;
+		var t = oEvent.clientY - oDiv1.offsetTop - oSpan.offsetHeight/2;
+
+		var maxMoveWidth = oDiv1.offsetWidth - oSpan.offsetWidth;
+		var maxMoveHeight = oDiv1.offsetHeight - oSpan.offsetHeight;
+		if (l <= 0) {
+			l = 0;
+		} else if( l >maxMoveWidth){
+			l = maxMoveWidth;
+		}
+		if (t <= 0) {
+			t = 0;
+		} else if( t>maxMoveHeight){
+			t = maxMoveHeight;
+		}
+
+		var sX = l/maxMoveWidth;
+		var sY = t/maxMoveHeight;
+
+		oSpan.style.left = l + "px";
+		oSpan.style.top = t + "px";
+		oImg.style.left = -sX*(oImg.offsetWidth - oDiv2.offsetWidth) + 'px';
+		oImg.style.top = -sY*(oImg.offsetHeight - oDiv2.offsetHeight) + 'px';
+	};
+
+	oDiv1.onmouseover = function(){
+		oDiv2.style.display = 'block';
+		oSpan.style.display = 'block';
+	};
+	oDiv1.onmouseout = function(){
+		oDiv2.style.display = 'none';
+		oSpan.style.display = 'none';
+	};
+};
+</script>
+</head>
+
+<body>
+	<div id="div1">
+		<img src="1.jpg" alt="美女" />
+		<span id="span"></span>
+	</div>
+	<div id="div2">
+		<img src="1.jpg" alt="美女" id="img" />
+	</div>
+</body>
+</html>
